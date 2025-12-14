@@ -1,26 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema; // Bu kütüphaneyi eklemelisin!
 
-namespace WebProjeAyseT.Models
+namespace WEBODY.Models
 {
     public class Hizmet
     {
         [Key]
         public int HizmetId { get; set; }
 
+        [Required(ErrorMessage = "Hizmet adı boş geçilemez.")]
         [Display(Name = "Hizmet Adı")]
-        [Required(ErrorMessage = "Hizmet adı zorunludur.")]
-        public string HizmetAdi { get; set; } // Örn: Özel Ders, Grup Dersi
+        public string Ad { get; set; }
 
-        [Display(Name = "Süre (Dakika)")]
-        
-        [Range(15, 180, ErrorMessage = "Süre 15 ile 180 dakika arasında olmalıdır.")] // Aralık kontrolü [cite: 1993]
-        public int Sure { get; set; }
-
-        [Display(Name = "Ücret")]
-        [DataType(DataType.Currency)]
+        // --- GÜNCELLENEN KISIM ---
+        [Range(0, 10000, ErrorMessage = "Ücret 0 ile 10.000 TL arasında olmalıdır.")]
+        [Column(TypeName = "decimal(18, 2)")] // SQL'de Money tipi gibi davranmasını sağlar
         public decimal Ucret { get; set; }
+        // -------------------------
 
-        // İlişki: Bir hizmet birçok randevuda kullanılabilir
-        public virtual ICollection<Randevu> Randevular { get; set; }
+        public int SureDakika { get; set; }
     }
 }

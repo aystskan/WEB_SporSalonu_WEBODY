@@ -1,0 +1,56 @@
+﻿@model WEBODY.Models.Randevu
+
+@{
+    ViewData["Title"] = "Randevu Al";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">Yeni Randevu Oluştur</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label fw-bold">Hizmet Türü</label>
+                            <select name="HizmetId" class="form-control" asp-items="ViewBag.HizmetId">
+                                <option value="">-- Hizmet Seçiniz --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="AntrenorId" class="control-label fw-bold"></label>
+                            <select asp-for="AntrenorId" class="form-control" asp-items="ViewBag.AntrenorId">
+                                <option value="">-- Antrenör Seçiniz --</option>
+                            </select>
+                            <span asp-validation-for="AntrenorId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="TarihSaat" class="control-label fw-bold"></label>
+                            <input asp-for="TarihSaat" class="form-control" type="datetime-local" />
+                            <span asp-validation-for="TarihSaat" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Randevu Al" class="btn btn-success btn-lg w-100" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<h1>Index</h1>
+

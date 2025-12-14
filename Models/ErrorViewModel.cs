@@ -1,4 +1,4 @@
-namespace WebProjeAyseT.Models
+namespace WEBODY.Models
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WEBODY.Models.Randevu>
+
+@{
+    ViewData["Title"] = "Randevularım";
+}
+
+<div class="container mt-4">
+    <h2>Randevularım</h2>
+    <hr />
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">Henüz bir randevunuz bulunmamaktadır. <a asp-action="Index">Hemen Randevu Al!</a></div>
+    }
+    else
+    {
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Tarih ve Saat</th>
+                    <th>Antrenör</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TarihSaat.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@(item.Antrenor?.AdSoyad ?? "Belirtilmemiş")</td>
+                        <td>
+                            <span class="badge @(item.Durum == "Onaylandı" ? "bg-success" : "bg-warning")">
+                                @item.Durum
+                            </span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="Index" class="btn btn-primary">Yeni Randevu Al</a>
+    }
+</div>
+
+<h1>Randevularim</h1>
+

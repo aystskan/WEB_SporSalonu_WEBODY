@@ -1,31 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema; // ForeignKey için gerekli
 
-namespace WebProjeAyseT.Models
+namespace WEBODY.Models
 {
     public class Randevu
     {
         [Key]
         public int RandevuId { get; set; }
 
+        [Required(ErrorMessage = "Tarih ve Saat seçimi zorunludur.")]
         [Display(Name = "Randevu Tarihi")]
-        [Required]
         public DateTime TarihSaat { get; set; }
 
-        [Display(Name = "Durum")]
-        public string Durum { get; set; } = "Beklemede"; // Onaylandı, İptal, Beklemede
+       
+        [Display(Name = "Antrenör")]
+        public int AntrenorId { get; set; }
+        [ForeignKey("AntrenorId")]
+        public Antrenor? Antrenor { get; set; }
 
-        // İlişkiler (Foreign Keys) - Hangi eğitmen? [cite: 2452]
-        [ForeignKey("Egitmen")]
-        public int EgitmenId { get; set; }
-        public virtual Egitmen Egitmen { get; set; }
-
-        // İlişkiler - Hangi hizmet?
-        [ForeignKey("Hizmet")]
-        public int HizmetId { get; set; }
-        public virtual Hizmet Hizmet { get; set; }
-
-        // İlişkiler - Hangi üye? (Identity User Id string olarak tutulur)
-        public string UyeId { get; set; }
+        // Üye bilgisi Identity kütüphanesinden gelecek ancak şimdilik basit tutuyoruz.
+        [Display(Name = "Üye Adı")]
+        [Required]
+        public string? UyeAdSoyad { get; set; } 
+        
+        public string Durum { get; set; } = "Beklemede"; // Onaylandı, İptal vs.
     }
 }

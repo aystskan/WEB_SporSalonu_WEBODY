@@ -1,37 +1,39 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using WebProjeAyseT.Models;
+using WEBODY.Models;
 
-namespace WebProjeAyseT.Data
+namespace WEBODY.Data
 {
-    public class DbSeeder
+    public static class DbSeeder
     {
         public static async Task SeedRolesAndAdminAsync(IServiceProvider service)
         {
             var userManager = service.GetService<UserManager<IdentityUser>>();
             var roleManager = service.GetService<RoleManager<IdentityRole>>();
 
-            // 1. ROLLERİ OLUŞTUR (Yoksa Ekle)
+            // 1. ROLLERİN KONTROLÜ VE OLUŞTURULMASI (BU KISIM ŞART)
+            // Eğer "Admin" rolü yoksa oluştur
             if (!await roleManager.RoleExistsAsync("Admin"))
                 await roleManager.CreateAsync(new IdentityRole("Admin"));
 
+            // Eğer "Uye" rolü yoksa oluştur
             if (!await roleManager.RoleExistsAsync("Uye"))
                 await roleManager.CreateAsync(new IdentityRole("Uye"));
 
-            // 2. ANA ADMİNİ OLUŞTUR (Sizin Hesabınız)
-            // Bu hesap veritabanı silinse bile proje her başladığında tekrar oluşturulur.
-            var myAdminEmail = "g231210001@sakarya.edu.tr"; // KENDİ MAİLİNİZİ YAZIN
+            // 2. ANA ADMİN (SEN) İÇİN GARANTİ OLUŞTURMA (OPSİYONEL AMA İYİDİR)
+            // Login sayfasındaki kod zaten yapacak ama veritabanı oluşur oluşmaz senin hesabın hazır olsun.
+            string myAdminEmail = "g231210043@sakarya.edu.tr";
 
-            var adminUser = await userManager.FindByEmailAsync(myAdminEmail);
-            if (adminUser == null)
+            var userCheck = await userManager.FindByEmailAsync(myAdminEmail);
+            if (userCheck == null)
             {
                 var newAdmin = new IdentityUser
                 {
                     UserName = myAdminEmail,
                     Email = myAdminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
                 };
 
-                // Şifre: sau
+                // Varsayılan şifre: sau
                 var result = await userManager.CreateAsync(newAdmin, "sau");
 
                 if (result.Succeeded)
