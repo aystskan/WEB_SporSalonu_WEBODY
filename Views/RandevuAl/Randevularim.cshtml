@@ -12,6 +12,14 @@
     {
         <div class="alert alert-info">Henüz bir randevunuz bulunmamaktadır. <a asp-action="Index">Hemen Randevu Al!</a></div>
     }
+    @if (TempData["Mesaj"] != null)
+    {
+        <div class="alert alert-success">@TempData["Mesaj"]</div>
+    }
+    @if (TempData["Hata"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Hata"]</div>
+    }
     else
     {
         <table class="table table-hover table-bordered">
@@ -20,6 +28,7 @@
                     <th>Tarih ve Saat</th>
                     <th>Antrenör</th>
                     <th>Durum</th>
+                    <th>İşlemler</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +38,38 @@
                         <td>@item.TarihSaat.ToString("dd.MM.yyyy HH:mm")</td>
                         <td>@(item.Antrenor?.AdSoyad ?? "Belirtilmemiş")</td>
                         <td>
-                            <span class="badge @(item.Durum == "Onaylandı" ? "bg-success" : "bg-warning")">
-                                @item.Durum
-                            </span>
+                            @if (item.Durum == "Onaylandı")
+                            {
+                                <span class="badge bg-success">Onaylandı</span>
+                            }
+                            else if (item.Durum == "İptal Edildi")
+                            {
+                                <span class="badge bg-danger">İptal Edildi</span>
+                            }
+                            else if (item.Durum == "Tamamlandı")
+                            {
+                                <span class="badge bg-secondary">Tamamlandı</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">@item.Durum</span>
+                            }
+                        </td>
+                        <td>
+                            @* Sadece Gelecek Tarihli ve İptal Edilmemiş Randevular İçin Buton Göster *@
+                            @if (item.TarihSaat > DateTime.Now && item.Durum != "İptal Edildi" && item.Durum != "Tamamlandı")
+                            {
+                                <form asp-action="IptalEt" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@item.RandevuId" />
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Randevuyu iptal etmek istediğinize emin misiniz?');">
+                                        İptal Et
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted text-small">İşlem Yok</span>
+                            }
                         </td>
                     </tr>
                 }
@@ -40,6 +78,4 @@
         <a asp-action="Index" class="btn btn-primary">Yeni Randevu Al</a>
     }
 </div>
-
-<h1>Randevularim</h1>
 

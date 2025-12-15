@@ -40,7 +40,22 @@
                 @Html.DisplayFor(modelItem => item.UyeAdSoyad)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Durum)
+                @if (item.Durum == "Onaylandı")
+                {
+                    <span class="badge bg-success">Onaylandı</span>
+                }
+                else if (item.Durum == "İptal Edildi")
+                {
+                    <span class="badge bg-danger">İptal Edildi</span>
+                }
+                else if (item.Durum == "Tamamlandı")
+                {
+                    <span class="badge bg-primary">Tamamlandı</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark">@item.Durum</span>
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.RandevuId">Edit</a> |

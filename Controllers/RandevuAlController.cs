@@ -110,14 +110,76 @@ namespace WEBODY.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            // LINQ Where ile sadece oturum açan kişinin randevularını getir
+            // --- OTOMATİK DURUM GÜNCELLEME ---
+            // Tarihi geçmiş ama durumu hala "Onaylandı" veya "Beklemede" olanları bul
+            var gecmisRandevular = await _context.Randevular
+                .Where(r => r.TarihSaat < DateTime.Now
+                       && r.Durum != "Tamamlandı"
+                       && r.Durum != "İptal Edildi") // İptal edilenlere dokunma!
+                .ToListAsync();
+
+            if (gecmisRandevular.Any())
+            {
+                foreach (var randevu in gecmisRandevular)
+                {
+                    randevu.Durum = "Tamamlandı";
+                }
+                await _context.SaveChangesAsync(); // Değişiklikleri veritabanına işle
+            }
+            // ----------------------------------
+
+            // Şimdi güncel listeyi çek
             var randevular = await _context.Randevular
-                .Include(r => r.Antrenor) // Join işlemi (İlişkili veriyi getir)
+                .Include(r => r.Antrenor)
                 .Where(r => r.UyeAdSoyad == user.UserName)
-                .OrderByDescending(r => r.TarihSaat) // En yeni en üstte
+                .OrderByDescending(r => r.TarihSaat)
                 .ToListAsync();
 
             return View(randevular);
+        }
+
+        // 2. YENİ METOT: İPTAL ETME İŞLEMİ
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IptalEt(int id)
+        {
+            // Randevuyu bul
+            var randevu = await _context.Randevular.FindAsync(id);
+            var user = await _userManager.GetUserAsync(User);
+
+            // Güvenlik Kontrolleri
+            if (randevu == null)
+            {
+                return NotFound();
+            }
+
+            // Başkasının randevusunu iptal etmeye çalışıyorsa engelle
+            if (randevu.UyeAdSoyad != user.UserName)
+            {
+                return Unauthorized(); // Yetkisiz Erişim
+            }
+
+            // Geçmiş randevu iptal edilemez
+            if (randevu.TarihSaat < DateTime.Now)
+            {
+                TempData["Hata"] = "Geçmiş tarihli randevular iptal edilemez.";
+                return RedirectToAction(nameof(Randevularim));
+            }
+
+            // Zaten iptal edilmişse işlem yapma
+            if (randevu.Durum == "İptal Edildi")
+            {
+                TempData["Hata"] = "Bu randevu zaten iptal edilmiş.";
+                return RedirectToAction(nameof(Randevularim));
+            }
+
+            // İptal İşlemi
+            randevu.Durum = "İptal Edildi";
+            _context.Update(randevu);
+            await _context.SaveChangesAsync();
+
+            TempData["Mesaj"] = "Randevunuz başarıyla iptal edildi.";
+            return RedirectToAction(nameof(Randevularim));
         }
     }
 }
