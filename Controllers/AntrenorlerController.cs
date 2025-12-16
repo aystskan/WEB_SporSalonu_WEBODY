@@ -57,7 +57,7 @@ namespace WEBODY.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AntrenorId,AdSoyad,UzmanlikAlani")] Antrenor antrenor)
+        public async Task<IActionResult> Create([Bind("AntrenorId,AdSoyad,UzmanlikAlani,BaslangicSaati,BitisSaati")] Antrenor antrenor)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace WEBODY.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AntrenorId,AdSoyad,UzmanlikAlani")] Antrenor antrenor)
+        public async Task<IActionResult> Edit(int id, [Bind("AntrenorId,AdSoyad,UzmanlikAlani,BaslangicSaati,BitisSaati")] Antrenor antrenor)
         {
             if (id != antrenor.AntrenorId)
             {

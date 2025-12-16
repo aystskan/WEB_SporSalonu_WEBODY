@@ -60,6 +60,22 @@ namespace WEBODY.Controllers
                 return YenidenYukle(randevu);
             }
 
+            // Antrenörün çalışma saatlerini veritabanından çek
+            var secilenAntrenor = await _context.Antrenorler.FindAsync(randevu.AntrenorId);
+
+            if (secilenAntrenor != null)
+            {
+                int randevuSaati = randevu.TarihSaat.Hour; // Seçilen saati al (Örn: 14)
+
+                // Eğer randevu saati, başlangıçtan küçükse VEYA bitişten büyük/eşitse hata ver
+                if (randevuSaati < secilenAntrenor.BaslangicSaati || randevuSaati >= secilenAntrenor.BitisSaati)
+                {
+                    ModelState.AddModelError("TarihSaat",
+                        $"Seçtiğiniz antrenör sadece {secilenAntrenor.BaslangicSaati}:00 ile {secilenAntrenor.BitisSaati}:00 saatleri arasında hizmet vermektedir.");
+                    return YenidenYukle(randevu);
+                }
+            }
+
             // Bu üyenin bu saatte başka bir randevum var mı?
             bool uyeDoluMu = _context.Randevular.Any(r =>
                 r.UyeAdSoyad == randevu.UyeAdSoyad &&
