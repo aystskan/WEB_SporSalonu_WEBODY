@@ -26,9 +26,11 @@
             <thead class="table-dark">
                 <tr>
                     <th>Tarih ve Saat</th>
+                    <th>Hizmet</th>
                     <th>Antrenör</th>
                     <th>Durum</th>
                     <th>İşlemler</th>
+                    <th>Ücret</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +38,7 @@
                 {
                     <tr>
                         <td>@item.TarihSaat.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@item.HizmetAdi</td>
                         <td>@(item.Antrenor?.AdSoyad ?? "Belirtilmemiş")</td>
                         <td>
                             @if (item.Durum == "Onaylandı")
@@ -71,6 +74,7 @@
                                 <span class="text-muted text-small">İşlem Yok</span>
                             }
                         </td>
+                        <td>@item.Ucret.ToString("C2")</td>
                     </tr>
                 }
             </tbody>

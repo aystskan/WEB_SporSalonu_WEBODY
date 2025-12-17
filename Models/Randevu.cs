@@ -13,7 +13,9 @@ namespace WEBODY.Models
         [Display(Name = "Randevu Tarihi")]
         public DateTime TarihSaat { get; set; }
 
-       
+        [Display(Name = "Alınan Hizmet")]
+        public string? HizmetAdi { get; set; }
+
         [Display(Name = "Antrenör")]
         public int AntrenorId { get; set; }
         [ForeignKey("AntrenorId")]
@@ -22,8 +24,12 @@ namespace WEBODY.Models
         // Üye bilgisi Identity kütüphanesinden gelecek ancak şimdilik basit tutuyoruz.
         [Display(Name = "Üye Adı")]
         [Required]
-        public string? UyeAdSoyad { get; set; } 
-        
+        public string? UyeAdSoyad { get; set; }
+
         public string Durum { get; set; } = "Beklemede"; // Onaylandı, İptal vs.
+
+        [Display(Name = "Ücret")]
+        [Column(TypeName = "decimal(18,2)")] // Para birimi formatı
+        public decimal Ucret { get; set; }
     }
 }

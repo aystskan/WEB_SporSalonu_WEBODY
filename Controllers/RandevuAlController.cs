@@ -44,6 +44,7 @@ namespace WEBODY.Controllers
             ModelState.Remove("Antrenor");
             ModelState.Remove("UyeAdSoyad");
             ModelState.Remove("Durum");
+            ModelState.Remove("HizmetAdi");
 
             // 3. Hizmet Kontrolü
             var secilenHizmet = await _context.Hizmetler.FindAsync(HizmetId);
@@ -52,6 +53,10 @@ namespace WEBODY.Controllers
                 ModelState.AddModelError("", "Lütfen bir hizmet seçiniz.");
                 return YenidenYukle(randevu);
             }
+
+            // SNAPSHOT MANTIĞI: O anki fiyatı ve adı randevuya kopyalıyoruz
+            randevu.Ucret = secilenHizmet.Ucret;
+            randevu.HizmetAdi = secilenHizmet.Ad;
 
             // 4. Tarih Kontrolü
             if (randevu.TarihSaat < DateTime.Now)
@@ -101,9 +106,11 @@ namespace WEBODY.Controllers
             // 6. KAYIT İŞLEMİ
             if (ModelState.IsValid)
             {
-                randevu.Durum = "Onaylandı";
+                randevu.Durum = "Beklemede";
                 _context.Add(randevu);
                 await _context.SaveChangesAsync();
+
+                TempData["Mesaj"] = "Randevunuz alındı, onay bekleniyor.";
 
                 // Başarılı olursa Randevularım sayfasına git
                 return RedirectToAction(nameof(Randevularim));

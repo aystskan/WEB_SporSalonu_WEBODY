@@ -16,10 +16,16 @@
                 @Html.DisplayNameFor(model => model.TarihSaat)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.HizmetAdi)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Antrenor)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.UyeAdSoyad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ucret)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Durum)
@@ -34,10 +40,16 @@
                 @Html.DisplayFor(modelItem => item.TarihSaat)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.HizmetAdi)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Antrenor.AdSoyad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UyeAdSoyad)
+            </td>
+            <td>
+                @item.Ucret.ToString("C2")
             </td>
             <td>
                 @if (item.Durum == "Onaylandı")
