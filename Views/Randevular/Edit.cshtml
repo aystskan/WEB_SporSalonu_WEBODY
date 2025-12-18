@@ -20,6 +20,13 @@
             </div>
 
             <div class="form-group mb-3">
+                <label asp-for="HizmetAdi" class="control-label fw-bold">Hizmet Türü</label>
+                <select asp-for="HizmetAdi" class="form-control form-select" asp-items="ViewBag.HizmetListesi">
+                </select>
+                <span asp-validation-for="HizmetAdi" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
                 <label asp-for="TarihSaat" class="control-label fw-bold"></label>
                 <input asp-for="TarihSaat" class="form-control" />
                 <span asp-validation-for="TarihSaat" class="text-danger"></span>
@@ -42,6 +49,8 @@
                 </select>
                 <span asp-validation-for="Durum" class="text-danger"></span>
             </div>
+
+            <input type="hidden" asp-for="Ucret" />
 
             <div class="form-group mt-3">
                 <input type="submit" value="Kaydet ve Güncelle" class="btn btn-primary w-100" />

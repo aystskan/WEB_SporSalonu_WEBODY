@@ -94,7 +94,7 @@ namespace WEBODY.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RandevuId,TarihSaat,AntrenorId,UyeAdSoyad,Durum")] Randevu randevu)
+        public async Task<IActionResult> Edit(int id, [Bind("RandevuId,TarihSaat,AntrenorId,UyeAdSoyad,Durum,HizmetAdi,Ucret")] Randevu randevu)
         {
             if (id != randevu.RandevuId)
             {
