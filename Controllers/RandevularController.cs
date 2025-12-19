@@ -86,6 +86,11 @@ namespace WEBODY.Controllers
                 return NotFound();
             }
             ViewData["AntrenorId"] = new SelectList(_context.Antrenorler, "AntrenorId", "AdSoyad", randevu.AntrenorId);
+
+            // Value: "Ad" (Çünkü veritabanına string isim kaydediyoruz)
+            // Text: "Ad" (Görünecek kısım)
+            ViewData["HizmetListesi"] = new SelectList(_context.Hizmetler, "Ad", "Ad", randevu.HizmetAdi);
+
             return View(randevu);
         }
 
@@ -96,32 +101,39 @@ namespace WEBODY.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RandevuId,TarihSaat,AntrenorId,UyeAdSoyad,Durum,HizmetAdi,Ucret")] Randevu randevu)
         {
-            if (id != randevu.RandevuId)
-            {
-                return NotFound();
-            }
+            if (id != randevu.RandevuId) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // --- FİYAT GÜNCELLEME MANTIĞI ---
+                    // Seçilen yeni hizmetin adını kullanarak Hizmetler tablosundan güncel fiyatını bulalım
+                    var guncelHizmet = await _context.Hizmetler
+                                             .FirstOrDefaultAsync(h => h.Ad == randevu.HizmetAdi);
+
+                    if (guncelHizmet != null)
+                    {
+                        // Randevunun ücretini, yeni seçilen hizmetin ücretiyle değiştir
+                        randevu.Ucret = guncelHizmet.Ucret;
+                    }
+                    // --------------------------------
+
                     _context.Update(randevu);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RandevuExists(randevu.RandevuId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!RandevuExists(randevu.RandevuId)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // Hata olursa dropdownları tekrar doldur
             ViewData["AntrenorId"] = new SelectList(_context.Antrenorler, "AntrenorId", "AdSoyad", randevu.AntrenorId);
+            ViewData["HizmetListesi"] = new SelectList(_context.Hizmetler, "Ad", "Ad", randevu.HizmetAdi); // Hata durumunda liste kaybolmasın
+
             return View(randevu);
         }
 
