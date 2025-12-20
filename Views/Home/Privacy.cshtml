@@ -1,6 +1,100 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Gizlilik Politikası";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+                <div class="card-header bg-primary text-white p-4 text-center">
+                    <h2 class="fw-bold mb-1"><i class="bi bi-shield-lock-fill me-2"></i> Gizlilik Politikası</h2>
+                    <p class="mb-0 opacity-75">Son Güncelleme: @DateTime.Now.ToString("dd MMMM yyyy")</p>
+                </div>
+                <div class="card-body p-4 bg-white">
+                    <p class="lead text-muted text-center">
+                        WEBODY olarak kişisel verilerinizin güvenliği bizim için en öncelikli konudur.
+                        Bu metin, platformumuzu kullanırken verilerinizin nasıl işlendiğini açıklar.
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion shadow-sm rounded-4" id="privacyAccordion">
+
+                <div class="accordion-item border-0 border-bottom">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <i class="bi bi-database-fill-gear me-2 text-primary"></i> 1. Topladığımız Veriler
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#privacyAccordion">
+                        <div class="accordion-body text-secondary">
+                            Hizmetlerimizi en iyi şekilde sunabilmek için şu verileri topluyoruz:
+                            <ul class="mt-2">
+                                <li><strong>Kimlik Bilgileri:</strong> Ad, soyad ve e-posta adresi (Üyelik işlemleri için).</li>
+                                <li><strong>Fiziksel Veriler:</strong> Yaş, boy, kilo, cinsiyet, saç ve ten rengi gibi fiziksel özellikler (Yapay zeka analizi için).</li>
+                                <li><strong>Kullanım Verileri:</strong> Oluşturulan antrenman programları ve randevu geçmişi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 border-bottom">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                            <i class="bi bi-robot me-2 text-warning"></i> 2. Yapay Zeka ve Üçüncü Taraf Hizmetler
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#privacyAccordion">
+                        <div class="accordion-body text-secondary">
+                            WEBODY, kişiselleştirilmiş antrenman programları ve avatar görselleri oluşturmak için gelişmiş yapay zeka teknolojileri kullanır.
+                            <br><br>
+                            Bu kapsamda, fiziksel ölçümleriniz anonimleştirilerek şu servislerle paylaşılabilir:
+                            <ul>
+                                <li><strong>Google Gemini API:</strong> Antrenman ve beslenme programı metinlerinin oluşturulması.</li>
+                                <li><strong>Pollinations AI:</strong> Hedeflediğiniz vücut formunu gösteren avatar görsellerinin üretilmesi.</li>
+                            </ul>
+                            <em>Bu veriler sadece işlem anında kullanılır ve üçüncü taraflarca kalıcı olarak saklanmaz.</em>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 border-bottom">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                            <i class="bi bi-lock-fill me-2 text-success"></i> 3. Veri Güvenliği
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#privacyAccordion">
+                        <div class="accordion-body text-secondary">
+                            Verileriniz <strong>ASP.NET Core Identity</strong> altyapısı ile şifrelenerek saklanmaktadır.
+                            Veritabanımızda kullanıcı şifreleri asla açık metin olarak tutulmaz, Hashleme (Hashing) yöntemleri ile korunur.
+                            Sistemimiz düzenli olarak güvenlik açıklarına karşı taranmaktadır.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                            <i class="bi bi-cookie me-2 text-info"></i> 4. Çerez Politikası
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#privacyAccordion">
+                        <div class="accordion-body text-secondary">
+                            Oturumunuzun açık kalmasını sağlamak ve tercihlerinizi hatırlamak için zorunlu çerezler (cookies) kullanıyoruz.
+                            Sitemizi kullanarak çerez kullanımını kabul etmiş sayılırsınız.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-5 text-muted small">
+                <p>Bu politika hakkında sorularınız için lütfen <a href="mailto:destek@webody.com" class="text-primary text-decoration-none">destek@webody.com</a> adresinden bize ulaşın.</p>
+                <p>&copy; @DateTime.Now.Year WEBODY - Sakarya Üniversitesi Projesi</p>
+            </div>
+
+        </div>
+    </div>
+</div>
