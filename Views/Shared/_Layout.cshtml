@@ -1,72 +1,193 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WEBODY</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WEBODY.styles.css" asp-append-version="true" />
+
+    <style>
+        :root {
+            --primary-blue: #0d6efd;
+            --light-bg: #f8faff;
+            --dark-text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: #ffffff !important;
+            padding: 1.2rem 0;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.04);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+            color: var(--dark-text) !important;
+        }
+
+        .brand-b {
+            color: #0dcaf0;
+        }
+
+        .brand-ody {
+            color: #0d6efd;
+        }
+
+        .nav-link {
+            color: #555 !important;
+            font-weight: 500;
+            margin: 0 8px; /* Linkler sığsın diye arayı biraz kıstım */
+            transition: all 0.3s;
+        }
+
+            .nav-link:hover, .nav-link.active {
+                color: var(--primary-blue) !important;
+                background-color: rgba(13, 110, 253, 0.08);
+                border-radius: 12px;
+                transform: translateY(-2px);
+            }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.25);
+            transition: transform 0.2s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0b5ed7;
+                transform: translateY(-2px);
+            }
+
+        footer {
+            background-color: #ffffff;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            padding: 2rem 0;
+        }
+
+        /* @@media Düzeltmesi */
+        @@media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WEBODY</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="YapayZeka" asp-action="Index">
-                                ✨ AI Asistan
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-activity text-primary me-1"></i>
+                WE<span class="brand-b">B</span><span class="brand-ody">ODY</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto ms-lg-2">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fw-bold text-primary" asp-area="" asp-controller="YapayZeka" asp-action="Index">
+                            <i class="bi bi-stars"></i> AI
+                        </a>
+                    </li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-shield-lock"></i> Yönetim
                             </a>
+                            <ul class="dropdown-menu border-0 shadow-lg rounded-3">
+                                <li><h6 class="dropdown-header text-uppercase small fw-bold text-muted">Salon Yönetimi</h6></li>
+
+                                <li><a class="dropdown-item py-2" asp-controller="Antrenorler" asp-action="Index">Antrenörleri Yönet</a></li>
+
+                                <li><a class="dropdown-item py-2" asp-controller="Hizmetler" asp-action="Index">Hizmetleri Yönet</a></li>
+
+                                <li><hr class="dropdown-divider"></li>
+                                <li><h6 class="dropdown-header text-uppercase small fw-bold text-muted">Randevu Takibi</h6></li>
+
+                                <li><a class="dropdown-item py-2" asp-controller="Randevular" asp-action="Index">Tüm Randevular</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Antrenorler" asp-action="Index">Antrenörler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hizmetler" asp-action="Index">Hizmetler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Randevular" asp-action="Index">Randevular</a>
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Randevu İşlemleri</a>
+                            <ul class="dropdown-menu border-0 shadow-lg rounded-3">
+                                <li><a class="dropdown-item py-2" asp-controller="RandevuAl" asp-action="Index">📅 Randevu Al</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item py-2" asp-controller="RandevuAl" asp-action="Randevularim">📋 Randevularım</a></li>
+                            </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark fw-bold" asp-controller="RandevuAl" asp-action="Index">Randevu Al</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-code-slash"></i> API
+                            </a>
+                            <ul class="dropdown-menu border-0 shadow-lg rounded-3">
+                                <li><a class="dropdown-item py-2" href="/api/WebodyApi/Antrenorler" target="_blank">Antrenör Listesi</a></li>
+                                <li><a class="dropdown-item py-2" href="/api/WebodyApi/GecmisRandevular" target="_blank">Geçmiş Randevular</a></li>
+                                <li><a class="dropdown-item py-2" href="/api/WebodyApi/GelecekRandevular" target="_blank">Gelecek Randevular</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="RandevuAl" asp-action="Randevularim">Randevularım</a>
-                        </li>
+                    }
+                </ul>
 
-                        <partial name="_LoginPartial" />
-
-                    </ul>
-                </div>
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <partial name="_LoginPartial" />
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 mt-4">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - WEBODY - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="mt-auto text-center border-top">
+        <div class="container py-3">
+            <h5 class="fw-bold text-dark mb-1">
+                WE<span style="color:#0dcaf0">B</span><span class="text-primary">ODY</span>
+            </h5>
+            <p class="mb-1 text-muted small">
+                &copy; 2025 - WEBODY - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-decoration-none text-muted">Gizlilik Politikası</a>
+            </p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

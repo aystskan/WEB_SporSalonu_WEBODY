@@ -1,99 +1,248 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model WEBODY.Models.YapayZekaViewModel
+﻿@model WEBODY.Models.YapayZekaViewModel
 
 @{
-    ViewData["Title"] = "Akıllı Antrenör";
+    ViewData["Title"] = "Sanal Antrenör";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header bg-warning text-dark">
-                    <h4 class="mb-0"><i class="bi bi-robot"></i> AI Destekli Program</h4>
+<style>
+    /* --- GENEL KART EFEKTLERİ --- */
+    .hover-card {
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important;
+        }
+
+    /* --- AVATAR STİLİ --- */
+    .avatar-wrapper {
+        position: relative;
+        display: inline-block;
+        padding: 8px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .avatar-circle {
+        width: 350px;
+        height: 350px;
+        object-fit: cover;
+        object-position: top center;
+        border-radius: 50%;
+        border: 4px solid #f8f9fa;
+    }
+
+    /* --- YAPAY ZEKA METİN DÜZENİ --- */
+    /* Başlıkların hepsi artık standart koyu renk ve şık */
+    .ai-content-style h4 {
+        color: #212529 !important; /* Standart Koyu Renk */
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    /* --- KAS.PNG DÜZENİ --- */
+    .muscle-anatomy-img {
+        width: 85%; /* Sayfanın %85'i kadar yer kaplasın (Biraz küçüldü) */
+        height: auto; /* Yükseklik otomatik, resim sünmeyecek */
+        display: block;
+        margin: 0 auto; /* Ortala */
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row g-4">
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100">
+                <div class="card-header bg-dark text-white p-4">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-sliders2"></i> Vücut Analizi</h5>
+                    <p class="small text-white-50 mb-0">Yapay zeka için verilerinizi girin.</p>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4 bg-light">
                     <form asp-action="Index" method="post">
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Yaşınız</label>
-                            <input asp-for="Yas" class="form-control" type="number" value="25" required />
+                        <div class="form-floating mb-3">
+                            <input asp-for="Yas" class="form-control" type="number" placeholder="Yaş" value="25" required />
+                            <label>Yaşınız</label>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6 mb-3">
-                                <label class="form-label fw-bold">Boy (cm)</label>
-                                <input asp-for="Boy" class="form-control" type="number" value="175" required />
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <input asp-for="Boy" class="form-control" type="number" placeholder="Boy" value="175" required />
+                                    <label>Boy (cm)</label>
+                                </div>
                             </div>
-                            <div class="col-6 mb-3">
-                                <label class="form-label fw-bold">Kilo (kg)</label>
-                                <input asp-for="Kilo" class="form-control" type="number" value="70" required />
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <input asp-for="Kilo" class="form-control" type="number" placeholder="Kilo" value="70" required />
+                                    <label>Kilo (kg)</label>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Cinsiyet</label>
-                            <select asp-for="Cinsiyet" class="form-select">
+                        <div class="form-floating mb-3">
+                            <select asp-for="Cinsiyet" class="form-select" id="cinsiyetSelect">
                                 <option value="Kadın">Kadın</option>
                                 <option value="Erkek">Erkek</option>
                             </select>
+                            <label>Cinsiyet</label>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Hedefiniz</label>
+                        <div class="form-floating mb-3">
                             <select asp-for="Hedef" class="form-select">
-                                <option value="Kilo Vermek (Yağ Yakımı)">Kilo Vermek</option>
-                                <option value="Kas Kütlesi Kazanmak">Kas Yapmak</option>
-                                <option value="Formu Korumak">Formu Korumak</option>
+                                <option value="Kilo Vermek">Kilo Vermek & Yağ Yakmak</option>
+                                <option value="Kas Yapmak">Kas Kütlesi Kazanmak</option>
+                                <option value="Formu Korumak">Formu ve Kondisyonu Korumak</option>
                             </select>
+                            <label>Hedefiniz</label>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Aktivite Düzeyi</label>
+                        <div class="form-floating mb-4">
                             <select asp-for="AktiviteDuzeyi" class="form-select">
-                                <option value="Hareketsiz (Masa başı)">Hareketsiz</option>
-                                <option value="Orta Hareketli (Haftada 2-3 spor)">Orta Hareketli</option>
-                                <option value="Çok Hareketli (Haftada 5+ spor)">Çok Hareketli</option>
+                                <option value="Hareketsiz">Hareketsiz (Masa başı)</option>
+                                <option value="Orta Hareketli">Orta (Haftada 2-3 gün spor)</option>
+                                <option value="Çok Hareketli">Aktif (Haftada 5+ gün spor)</option>
                             </select>
+                            <label>Aktivite Düzeyi</label>
                         </div>
 
-                        <button type="submit" class="btn btn-dark w-100 py-2">
-                            <i class="bi bi-cpu"></i> Programımı Oluştur
+                        <div class="d-flex align-items-center mb-3">
+                            <hr class="flex-grow-1">
+                            <span class="px-2 text-muted small fw-bold">👀 Başardığının Ön İzlemesi İçin</span>
+                            <hr class="flex-grow-1">
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Saç Rengi</label>
+                                <select asp-for="SacRengi" class="form-select form-select-sm">
+                                    <option value="Brown">Kahve</option>
+                                    <option value="Black">Siyah</option>
+                                    <option value="Blonde">Sarı</option>
+                                    <option value="Red">Kızıl</option>
+                                    <option value="Bald">Kel</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Ten Rengi</label>
+                                <select asp-for="TenRengi" class="form-select form-select-sm">
+                                    <option value="Fair">Açık</option>
+                                    <option value="Tan">Buğday</option>
+                                    <option value="Dark">Esmer</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Gözlük?</label>
+                                <select asp-for="GozlukVarMi" class="form-select form-select-sm">
+                                    <option value="No Glasses">Yok</option>
+                                    <option value="Wearing Glasses">Var</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label class="form-label small text-muted">Sakal?</label>
+                                <select asp-for="SakalVarMi" class="form-select form-select-sm" id="sakalSelect">
+                                    <option value="No Beard">Yok</option>
+                                    <option value="Beard">Var</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100 py-3 fw-bold mt-4 rounded-3 shadow hover-card">
+                            <i class="bi bi-stars text-warning"></i> PROGRAMI OLUŞTUR
                         </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-lg-8">
             @if (ViewBag.Hata != null)
             {
-                <div class="alert alert-danger shadow-sm">
-                    <i class="bi bi-exclamation-triangle-fill"></i> @ViewBag.Hata
+                <div class="alert alert-danger shadow-sm rounded-3">
+                    <i class="bi bi-exclamation-octagon-fill me-2"></i> @ViewBag.Hata
                 </div>
             }
 
             @if (!string.IsNullOrEmpty(Model.YapayZekaCevabi))
             {
-                <div class="card shadow border-success">
-                    <div class="card-header bg-success text-white">
-                        <h4 class="mb-0"><i class="bi bi-check-circle-fill"></i> Size Özel Tavsiyeler</h4>
+                <div class="card border-0 shadow-lg rounded-4 mb-4 hover-card">
+                    <div class="card-header bg-white p-4 border-bottom">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary text-white rounded-circle p-3 me-3">
+                                <i class="bi bi-clipboard2-pulse-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <h4 class="mb-0 fw-bold text-dark">Sanal Antrenör</h4>
+                                <small class="text-muted">Yapay zeka analizlerine göre oluşturuldu.</small>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4 ai-content-style">
                         @Html.Raw(Model.YapayZekaCevabi)
                     </div>
-                    <div class="card-footer text-muted text-center">
-                        <small>Bu program Yapay Zeka (Gemini AI) tarafından oluşturulmuştur. Lütfen uygulamadan önce doktorunuza danışınız.</small>
+                </div>
+
+                <div class="card border-0 shadow-lg rounded-4 mb-4 overflow-hidden hover-card">
+                    <div class="card-header bg-warning text-dark fw-bold p-3 text-center">
+                        <i class="bi bi-collection-play-fill me-2"></i> KAS GRUPLARI & ANATOMİ REHBERİ
+                    </div>
+
+                    <div class="card-body text-center p-4">
+                        <a href="https://www.muscleandstrength.com/exercises" target="_blank" class="d-block text-decoration-none">
+                            <img src="~/images/kas.png" asp-append-version="true" class="muscle-anatomy-img mb-3" alt="Kas Grupları Anatomisi">
+
+                            <span class="btn btn-outline-dark rounded-pill px-4">
+                                Detaylı Uygulama İçin Tıklayın <i class="bi bi-arrow-right ms-2"></i>
+                            </span>
+                        </a>
                     </div>
                 </div>
+
+                @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+                {
+                    <div class="card border-0 shadow-lg rounded-4 text-center bg-white overflow-hidden hover-card mt-5">
+                        <div class="card-header bg-white p-4 border-bottom">
+                            <h4 class="mb-0 fw-bold text-success"><i class="bi bi-person-bounding-box me-2"></i>✨ Bu İşin Üstesinden Gelmiş Bir Sen</h4>
+                            <p class="mb-0 text-muted small">Disiplin ve İstikrarın Sonucu</p>
+                        </div>
+
+                        <div class="card-body p-5 bg-light d-flex flex-column align-items-center">
+
+                            <div class="avatar-wrapper mb-4">
+                                <img src="@Model.AvatarUrl" class="avatar-circle" alt="Future You">
+                            </div>
+
+                            <div class="position-relative" style="z-index: 1;">
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Potansiyel Görünüm
+                                </span>
+                                <p class="text-muted mt-3 fst-italic mb-0" style="max-width: 500px;">
+                                    "Bu program yapay zeka tarafından oluşturulmuştur. Uygulama öncesi doktorunuza danışınız. Sağlıklı günler :)"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
             }
             else
             {
-                <div class="text-center mt-5 text-muted">
-                    <i class="bi bi-magic" style="font-size: 4rem; opacity: 0.5;"></i>
-                    <p class="mt-3 fs-5">Sol taraftaki bilgileri doldurun ve<br>yapay zekanın size özel program oluşturmasını bekleyin.</p>
+                <div class="d-flex flex-column align-items-center justify-content-center text-center p-5 rounded-4 bg-white shadow-sm border" style="min-height: 400px; border-style: dashed !important;">
+                    <div class="bg-light rounded-circle p-4 mb-3">
+                        <i class="bi bi-robot text-secondary" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark">Program Bekleniyor...</h4>
+                    <p class="text-muted w-75 mx-auto">
+                        Sol taraftaki panelden fiziksel özelliklerinizi ve hedeflerinizi seçin. Yapay zeka size özel programı ve avatarı saniyeler içinde hazırlasın.
+                    </p>
                 </div>
             }
         </div>
@@ -101,16 +250,19 @@
 </div>
 
 <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-        var btn = this.querySelector('button[type="submit"]');
-        var originalText = btn.innerHTML;
+    document.addEventListener('DOMContentLoaded', function() {
+        var cinsiyetSelect = document.getElementById('cinsiyetSelect');
+        var sakalSelect = document.getElementById('sakalSelect');
 
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Oluşturuluyor...';
-
-        // Form submit işleminin devam etmesi için (Normalde disabled buton formu göndermez)
-        // Bu küçük bir hile ile formu manuel gönderiyoruz:
-        // Ancak ASP.NET Core MVC'de buton disabled olunca bazen post etmeyebilir.
-        // En temizi butonu disabled yapıp submit olayına izin vermektir.
+        function sakalKontrol() {
+            if (cinsiyetSelect.value === 'Kadın') {
+                sakalSelect.value = 'No Beard';
+                sakalSelect.disabled = true;
+            } else {
+                sakalSelect.disabled = false;
+            }
+        }
+        cinsiyetSelect.addEventListener('change', sakalKontrol);
+        sakalKontrol();
     });
 </script>

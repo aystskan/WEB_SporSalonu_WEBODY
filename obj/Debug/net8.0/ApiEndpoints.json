@@ -1,0 +1,32 @@
+[
+  {
+    "ContainingType": "WEBODY.Controllers.WebodyApiController",
+    "Method": "GetAntrenorler",
+    "RelativePath": "api/WebodyApi/Antrenorler",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WEBODY.Controllers.WebodyApiController",
+    "Method": "GetGecmisRandevular",
+    "RelativePath": "api/WebodyApi/GecmisRandevular",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WEBODY.Controllers.WebodyApiController",
+    "Method": "GetGelecekRandevular",
+    "RelativePath": "api/WebodyApi/GelecekRandevular",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

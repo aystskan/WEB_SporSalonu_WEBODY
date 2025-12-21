@@ -2,84 +2,231 @@
     ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="rounded-5 overflow-hidden position-relative text-center text-white mb-5 shadow-lg mx-3 mx-lg-0"
-     style="background: linear-gradient(135deg, rgba(13, 110, 253, 0.9) 0%, rgba(13, 202, 240, 0.8) 100%), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop'); background-size: cover; background-position: center; padding: 160px 20px; min-height: 600px; display: flex; align-items: center; justify-content: center;">
+<link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
 
-    <div class="position-relative z-2 container">
-        <span class="badge bg-white text-primary px-4 py-2 rounded-pill mb-4 fw-bold shadow-sm" style="font-size: 1rem;">
-            <i class="bi bi-stars"></i> YAPAY ZEKA DESTEKLİ KOÇLUK
+<div class="hero-section rounded-bottom-5">
+    <div class="hero-bg-image"></div>
+
+    <div class="container position-relative z-1 text-center text-white">
+        <span class="badge bg-white px-4 py-2 rounded-pill mb-4 fw-bold shadow-lg" style="color: var(--brand-ody); letter-spacing: 1px;">
+            <i class="bi bi-stars me-2"></i> SPOR TEKNOLOJİSİNDE YENİ STANDART
         </span>
 
-        <h1 class="display-2 fw-bold mb-4" style="text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-            Geleceğin Antrenman<br>Deneyimi.
+        <h1 class="display-3 fw-bold mb-3">
+            Geleceğin Antrenman <br> Deneyimi
         </h1>
 
-        <p class="lead mb-5 text-white opacity-90 mx-auto fs-4" style="max-width: 800px; font-weight: 300;">
-            Webody, senin için verileri analiz eder, en uygun programı çıkarır ve gelişimini takip eder.
-            Daha akıllı çalış, daha hızlı sonuç al.
+        <p class="lead mb-5 opacity-90 mx-auto fs-5" style="max-width: 800px;">
+            Webody, <strong>yapay zeka destekli sanal antrenörün</strong> ile verilerini analiz eder,
+            sana en uygun programı çıkarır. Daha akıllı çalış, daha hızlı sonuç al.
         </p>
 
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a asp-controller="YapayZeka" asp-action="Index" class="btn btn-light btn-lg text-primary fw-bold px-5 py-3 rounded-pill shadow hover-up" style="font-size: 1.2rem;">
-                AI KOÇ'U DENE
+            <a asp-controller="YapayZeka" asp-action="Index" class="btn btn-light fw-bold btn-lg px-5 py-3 rounded-pill shadow hover-up" style="color: var(--brand-ody) !important;">
+                <i class="bi bi-robot me-2"></i> AI KOÇ'U DENE
             </a>
-            <a href="/Identity/Account/Register" class="btn btn-outline-light btn-lg fw-bold px-5 py-3 rounded-pill hover-up" style="font-size: 1.2rem;">
+            <a href="/Identity/Account/Register" class="btn btn-outline-light btn-lg fw-bold px-5 py-3 rounded-pill">
                 ÜYE OL
             </a>
         </div>
     </div>
 </div>
 
-<div class="container pb-5">
-    <div class="row g-4 text-center">
+<div class="container position-relative z-2" style="margin-top: -100px;">
+    <div class="row g-4">
+
         <div class="col-lg-4">
-            <div class="card h-100 border-0 shadow-sm p-5 hover-card bg-white rounded-5">
-                <div class="icon-box mb-4 mx-auto bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                    <i class="bi bi-cpu" style="font-size: 3rem;"></i>
+            <div class="feature-card">
+                <div class="icon-circle">
+                    <i class="bi bi-cpu"></i>
                 </div>
-                <h3 class="fw-bold text-dark mb-3">Akıllı Analiz</h3>
-                <p class="text-muted fs-5">
-                    Vücut kitle indeksini ve hedeflerini analiz ederek sana özel bilimsel bir yol haritası çizeriz.
+                <h4 class="fw-bold text-dark mt-3">Akıllı Analiz</h4>
+                <p class="text-muted small mt-2">
+                    Vücut kitle indeksini ve hedeflerini analiz ederek sana özel,
+                    bilimsel temelli bir yol haritası çizeriz.
                 </p>
             </div>
         </div>
+
         <div class="col-lg-4">
-            <div class="card h-100 border-0 shadow-sm p-5 hover-card bg-white rounded-5">
-                <div class="icon-box mb-4 mx-auto bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                    <i class="bi bi-graph-up" style="font-size: 3rem;"></i>
+            <div class="feature-card">
+                <div class="icon-circle">
+                    <i class="bi bi-clipboard-data"></i>
                 </div>
-                <h3 class="fw-bold text-dark mb-3">Veri Odaklı</h3>
-                <p class="text-muted fs-5">
-                    Gelişimini şansa bırakma. Tüm antrenman verilerin veritabanımızda güvenle saklanır ve raporlanır.
+                <h4 class="fw-bold text-dark mt-3">Veri Odaklı Takip</h4>
+                <p class="text-muted small mt-2">
+                    Performansını destekliyor, belirlediğin hedeflere ulaşman için
+                    gelişim sürecini yakından takip ediyoruz.
                 </p>
             </div>
         </div>
+
         <div class="col-lg-4">
-            <div class="card h-100 border-0 shadow-sm p-5 hover-card bg-white rounded-5">
-                <div class="icon-box mb-4 mx-auto bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                    <i class="bi bi-calendar-check" style="font-size: 3rem;"></i>
+            <div class="feature-card">
+                <div class="icon-circle">
+                    <i class="bi bi-calendar-check"></i>
                 </div>
-                <h3 class="fw-bold text-dark mb-3">Randevu Sistemi</h3>
-                <p class="text-muted fs-5">
-                    Uzman antrenörlerimizden dilediğin zaman randevu al, birebir görüşmelerle hedefine ulaş.
+                <h4 class="fw-bold text-dark mt-3">Randevu Sistemi</h4>
+                <p class="text-muted small mt-2">
+                    Sporda bir hareketin formu ne kadar nizami yapılıyorsa, işleyişimiz de o kadar
+                    disiplinli. Çakışmasız ve kusursuz planlama.
                 </p>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .hover-up:hover {
-        transform: translateY(-5px);
-        transition: 0.3s;
-    }
+<div class="container py-5 mt-5">
+    <div class="text-center mb-5">
+        <h6 class="fw-bold text-uppercase" style="color: var(--brand-ody); letter-spacing: 2px;">GENİŞ BRANŞ YELPAZESİ</h6>
+        <h2 class="fw-bold display-5 text-dark">Potansiyelini Nerede Göstermek İstersin?</h2>
+        <p class="text-muted mt-3 w-75 mx-auto">
+            Geliştirirken geliştiğimiz bu dinamik yapıda, hizmetlerimiz sürekli yenilenmektedir.
+            Sadece fiziksel güç değil, zihinsel odaklanma ve disiplin gerektiren branşlarımız:
+        </p>
+    </div>
 
-    .hover-card {
-        transition: all 0.3s ease;
-    }
+    <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" id="pills-guc-tab" data-bs-toggle="pill" data-bs-target="#pills-guc" type="button">💪 Güç & Kondisyon</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pills-odak-tab" data-bs-toggle="pill" data-bs-target="#pills-odak" type="button">🎯 Odak & Beceri</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="pills-dovus-tab" data-bs-toggle="pill" data-bs-target="#pills-dovus" type="button">🥋 Dövüş Sanatları</button>
+        </li>
+    </ul>
 
-        .hover-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(13, 110, 253, 0.1) !important;
-        }
-</style>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-guc">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-activity fs-1 mb-3" style="color: var(--brand-ody);"></i>
+                        <h5 class="fw-bold">Fitness</h5>
+                        <p class="small text-muted">Sağlam altyapı ve dayanıklılık.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-trophy-fill fs-1 mb-3 text-warning"></i>
+                        <h5 class="fw-bold">Vücut Geliştirme</h5>
+                        <p class="small text-muted">Güçlü ve estetik bir fizik.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-circle-fill fs-1 mb-3 text-success"></i>
+                        <h5 class="fw-bold">Pilates</h5>
+                        <p class="small text-muted">Esneklik ve denge.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-person-arms-up fs-1 mb-3 text-dark"></i>
+                        <h5 class="fw-bold">Kalistenik</h5>
+                        <p class="small text-muted">Vücut ağırlığıyla hakimiyet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-odak">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-bullseye fs-1 mb-3 text-danger"></i>
+                        <h5 class="fw-bold">Okçuluk</h5>
+                        <p class="small text-muted">Yüksek dikkat ve zihinsel odaklanma.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-droplet-fill fs-1 mb-3 text-info"></i>
+                        <h5 class="fw-bold">Su Sporları</h5>
+                        <p class="small text-muted">Koordinasyon ve nefes kontrolü.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-people-fill fs-1 mb-3 text-success"></i>
+                        <h5 class="fw-bold">Takım Sporları</h5>
+                        <p class="small text-muted">Strateji ve liderlik.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-hand-thumbs-up-fill fs-1 mb-3 text-dark"></i>
+                        <h5 class="fw-bold">Bilek Güreşi</h5>
+                        <p class="small text-muted">Patlayıcı güç ve teknik.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-dovus">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-lightning-charge-fill fs-1 mb-3 text-danger"></i>
+                        <h5 class="fw-bold">Boks</h5>
+                        <p class="small text-muted">Refleks ve yüksek kondisyon.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-shield-shaded fs-1 mb-3 text-dark"></i>
+                        <h5 class="fw-bold">Judo</h5>
+                        <p class="small text-muted">Gücü yönlendirme sanatı.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-person-standing fs-1 mb-3 text-primary"></i>
+                        <h5 class="fw-bold">Tekvando</h5>
+                        <p class="small text-muted">Disiplin ve teknik.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card h-100 border-0 shadow-sm p-4 text-center">
+                        <i class="bi bi-fan fs-1 mb-3 text-danger"></i>
+                        <h5 class="fw-bold">Wushu</h5>
+                        <p class="small text-muted">Estetik ve dövüş ustalığı.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5 mt-5">
+    <div class="bg-light rounded-5 p-5 text-center position-relative overflow-hidden border">
+        <div class="position-relative z-1">
+
+            <h3 class="fw-bold mb-3">...ve çok daha fazlası!</h3>
+            <p class="lead text-muted mb-4 mx-auto" style="max-width: 700px;">
+                Alanında uzman antrenörlerimizle tanışmak, süreci profesyonelce yönetmek ve
+                potansiyelini açığa çıkarmak için;
+            </p>
+
+            <a asp-controller="RandevuAl" asp-action="Index" class="btn btn-lg rounded-pill px-5 py-3 shadow fw-bold mb-5 btn-gradient-final">
+                RANDEVU AL <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+
+            <hr class="w-25 mx-auto mb-4 opacity-25">
+
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                    <p class="quote-text mb-2">
+                        "Ben sporcunun zeki, çevik ve aynı zamanda ahlaklısını severim."
+                    </p>
+                </blockquote>
+                <figcaption class="quote-author fst-italic mt-2">
+                    - Mustafa Kemal Atatürk
+                </figcaption>
+            </figure>
+
+        </div>
+    </div>
+</div>

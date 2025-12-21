@@ -1,0 +1,136 @@
+﻿/* 1. KURUMSAL RENK PALETİ */
+:root {
+    --brand-ody: #0d6efd; 
+    --brand-b: #0dcaf0; 
+    --brand-we: #052c65; 
+}
+
+/* 2. HERO ALANI */
+.hero-section {
+    background: linear-gradient(115deg, rgba(5, 44, 101, 0.95) 0%, rgba(13, 110, 253, 0.9) 15%, rgba(13, 202, 240, 0.85) 100%);
+    padding-top: 140px;
+    padding-bottom: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.24;
+    mix-blend-mode: overlay;
+}
+
+/* 3. KART TASARIMLARI */
+.feature-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    height: 100%;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.02);
+    position: relative;
+    z-index: 2;
+}
+
+    .feature-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 30px 60px rgba(13, 202, 240, 0.2);
+    }
+
+/* İKONLAR */
+.icon-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    font-size: 2.5rem;
+    transition: transform 0.3s;
+    background-color: rgba(5, 44, 101, 0.08);
+    color: var(--brand-ody);
+}
+
+.feature-card:hover .icon-circle {
+    transform: scale(1.1);
+    color: var(--brand-b); /* Hover'da hafif maviye dönsün */
+}
+
+/* 4. KATEGORİ BUTONLARI */
+.nav-pills .nav-link {
+    color: var(--brand-ody);
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    padding: 12px 35px;
+    margin: 0 5px;
+    font-weight: 700;
+    transition: all 0.3s;
+}
+
+    .nav-pills .nav-link:hover {
+        border-color: var(--brand-ody);
+        color: var(--brand-ody) !important;
+        background-color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .nav-pills .nav-link.active {
+        background-color: #fff;
+        color: var(--brand-b) !important;
+        border: 2px solid var(--brand-b);
+        box-shadow: 0 5px 20px rgba(13, 202, 240, 0.15);
+    }
+
+/* 5. FİNAL CTA BUTONU */
+.btn-gradient-final {
+    /* WE -> ODY Gradyan */
+    background: linear-gradient(90deg, var(--brand-we) 10%, var(--brand-ody) 90%);
+    color: white;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+    .btn-gradient-final:hover {
+        /* Hover: Zemin Beyaz, Yazı B (Turkuaz) */
+        background: #fff;
+        color: var(--brand-b) !important;
+        border-color: var(--brand-b);
+        box-shadow: 0 10px 30px rgba(5, 44, 101, 0.2);
+        transform: translateY(-3px);
+    }
+
+/* GENEL ANİMASYON VE TYPOGRAPHY */
+.hover-up {
+    transition: all 0.25s ease;
+}
+
+    .hover-up:hover {
+        transform: translateY(-5px);
+    }
+
+.quote-text {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #444;
+    line-height: 1.5;
+}
+
+.quote-author {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
